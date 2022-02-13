@@ -37,12 +37,13 @@ body {
 
 .slide {
   min-height: 100vh;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
   width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: white;
+  background: #17181a;
 }
 
 .hero-desc {
@@ -50,10 +51,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-basis: 25rem;
-  flex: 1;
   padding-left: 5rem;
+  flex: 1;
   position: relative;
+  flex-basis: 25rem;
 }
 
 .hero-img {
@@ -63,19 +64,86 @@ body {
 }
 
 .hero-img img {
-  width: 90%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .span1 {
-  color: rgb(250, 50, 0);
+  color: rgb(192, 98, 74);
 }
 
 .span2 {
-  color: rgb(240, 225, 17);
+  color: rgb(202, 194, 79);
 }
 
 .span3 {
   color: rgb(238, 173, 98);
 }
+
+.hero-desc h2{
+  font-family: "Abril Fatface";
+  font-size: 4rem;
+}
+.hero-desc p{
+  padding: 2rem 0rem;
+  color: rgb(180, 173, 173);
+  font-size: 1.5rem;
+}
+
+.explore{
+  padding: 1rem 2rem;
+  background: none;
+  border: 1px solid white;
+  font-size: 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.nav-bar{
+  position: fixed;
+  display: flex;
+  background: white;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  top:0%;
+  bottom: 0%;
+  z-index: 1;
+  opacity: 1;
+  clip-path: circle(50px at 100% -10%);
+  -webkit-clip-path: circle(50px at 100% -10%);
+}
+.burger {
+  cursor: pointer;
+}
+.nav-links{
+  font-size: 2.5rem;
+  flex-basis: 30rem;
+}
+.nav-links h3{
+  padding: 2rem 0rem;
+}
+.contact {
+  flex-basis: 30rem;
+}
+.contact h2{
+  font-size: 2.5rem;
+  padding: 2rem 0rem;
+}
+.contact p {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+/* .reveal-img,.reveal-text{
+  background: #17181a;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+} */
