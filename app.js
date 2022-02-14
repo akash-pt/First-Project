@@ -21,15 +21,18 @@ function animateSlides() {
             defaults: { duration: 1, ease: 'power2.inOut' }
         });
         slideTl.fromTo(revealImg, { x: '0%' }, { x: '100%' });
-        slideTl.fromTo(img, { scale: 2 }, { scale: 1 }, '-=1');
+        slideTl.fromTo(img, { scale: 1.5 }, { scale: 1 }, '-=1');
         slideTl.fromTo(revealText, { x: '0%' }, { x: '100%' }, '-=0.75');
-        slideTl.fromTo(nav, { y: '-100%' }, { y: '0%' }, '-=0.5');
+        slideTl.fromTo(nav, { y: '-100%' }, { y: '0%' },'-=0.75');
+
         //Create a scene to animate each slide when we scroll (Animation#1)
         slideScene = new ScrollMagic.Scene({
             triggerElement: slide,
             triggerHook: 0.25,
             reverse: false
-        }).setTween(slideTl).addIndicators({ colorTrigger: 'white', name: 'slide' }).addTo(controller);
+        }).setTween(slideTl)
+        .addIndicators({ colorTrigger: 'white', name: 'slide' })
+        .addTo(controller);
 
         //Animation#2
         const pageTl = gsap.timeline();
@@ -42,8 +45,55 @@ function animateSlides() {
             triggerElement: slide,
             duration: '100%',
             triggerHook: 0
-        }).setPin(slide, { pushFollowers: false }).setTween(pageTl).addIndicators({ colorTrigger: 'white', name: 'page', indent: 200 }).addTo(controller);
+        }).setPin(slide, { pushFollowers: false })
+        .setTween(pageTl)
+        .addIndicators({ colorTrigger: 'white', name: 'page', indent: 200 })
+        .addTo(controller);
     });
 }
+const mouse = document.querySelector('.cursor')
+const mouseTxt = mouse.querySelector('.cursor-text')
+// const burger = document.querySelector('burger')
 
+
+function cursor(e){
+    mouse.style.top = e.pageY + 'px'
+    mouse.style.left = e.pageX + 'px'
+
+}
+
+
+
+function activeCursor(e){
+    const item = e.target;
+ 
+    if(item.id === "logo" || item.classList.contains('burger')){
+        mouse.classList.add('activeHover');
+        
+    }
+    else{
+        mouse.classList.remove('activeHover');
+        
+    }
+    if(item.classList.contains('explore')){
+        mouse.classList.add('activeExp');
+        gsap.to(".title-swipe", 1, {y:"0%"})
+        mouseTxt.innerText = 'Tap'
+    }else{
+        mouse.classList.remove('activeExp');
+        mouseTxt.innerText = ''
+        gsap.to(".title-swipe", 1, {y:"100%"})
+    }
+}
+// function navToggle(e){
+//     gsap.to('line1',0.5,{rotate: '45', y:5})
+//     gsap.to('line2',0.5,{rotate: '-45', y:-5})
+// }
+
+
+
+
+window.addEventListener('mousemove',cursor);
+// window.addEventListener('click',navToggle);
+window.addEventListener('mouseover',activeCursor);
 animateSlides();
