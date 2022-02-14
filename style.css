@@ -7,6 +7,7 @@
 body {
   background: #17181a;
   font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
 }
 
 #logo {
@@ -61,6 +62,7 @@ body {
   position: relative;
   flex: 1;
   flex-basis: 25rem;
+  overflow: hidden;
 }
 
 .hero-img img {
@@ -75,24 +77,24 @@ body {
 }
 
 .span2 {
-  color: rgb(202, 194, 79);
-}
-
-.span3 {
   color: rgb(238, 173, 98);
 }
 
-.hero-desc h2{
+.span3 {
+  color: rgb(202, 194, 79);
+}
+
+.hero-desc h2 {
   font-family: "Abril Fatface";
   font-size: 4rem;
 }
-.hero-desc p{
+.hero-desc p {
   padding: 2rem 0rem;
   color: rgb(180, 173, 173);
   font-size: 1.5rem;
 }
 
-.explore{
+.explore {
   padding: 1rem 2rem;
   background: none;
   border: 1px solid white;
@@ -103,7 +105,7 @@ body {
   cursor: pointer;
 }
 
-.nav-bar{
+.nav-bar {
   position: fixed;
   display: flex;
   background: white;
@@ -111,7 +113,7 @@ body {
   justify-content: space-around;
   width: 100%;
   height: 100%;
-  top:0%;
+  top: 0%;
   bottom: 0%;
   z-index: 1;
   opacity: 1;
@@ -121,17 +123,17 @@ body {
 .burger {
   cursor: pointer;
 }
-.nav-links{
+.nav-links {
   font-size: 2.5rem;
   flex-basis: 30rem;
 }
-.nav-links h3{
+.nav-links h3 {
   padding: 2rem 0rem;
 }
 .contact {
   flex-basis: 30rem;
 }
-.contact h2{
+.contact h2 {
   font-size: 2.5rem;
   padding: 2rem 0rem;
 }
@@ -139,11 +141,25 @@ body {
   font-size: 1.5rem;
   line-height: 2rem;
 }
-/* .reveal-img,.reveal-text{
+
+.reveal-img,
+.reveal-text {
   background: #17181a;
   position: absolute;
   width: 100%;
-  height: 100%;
-  top: 0;
+  height: 150%;
+  top: -15%;
   left: 0;
-} */
+}
+
+.cursor {
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.scrollmagic-pin-spacer {
+  position: static !important;
+}
