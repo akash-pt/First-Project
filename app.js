@@ -51,15 +51,14 @@ function animateSlides() {
         .addTo(controller);
     });
 }
-const mouse = document.querySelector('.cursor')
-const mouseTxt = mouse.querySelector('.cursor-text')
-// const burger = document.querySelector('burger')
+const mouse = document.querySelector('.cursor');
+const mouseTxt = mouse.querySelector('.cursor-text');
+const burger = document.querySelector('burger');
 
 
 function cursor(e){
     mouse.style.top = e.pageY + 'px'
     mouse.style.left = e.pageX + 'px'
-
 }
 
 
@@ -69,12 +68,11 @@ function activeCursor(e){
  
     if(item.id === "logo" || item.classList.contains('burger')){
         mouse.classList.add('activeHover');
-        
     }
     else{
-        mouse.classList.remove('activeHover');
-        
+        mouse.classList.remove('activeHover'); 
     }
+
     if(item.classList.contains('explore')){
         mouse.classList.add('activeExp');
         gsap.to(".title-swipe", 1, {y:"0%"})
@@ -85,15 +83,27 @@ function activeCursor(e){
         gsap.to(".title-swipe", 1, {y:"100%"})
     }
 }
-// function navToggle(e){
-//     gsap.to('line1',0.5,{rotate: '45', y:5})
-//     gsap.to('line2',0.5,{rotate: '-45', y:-5})
-// }
 
-
-
+function navToggle(e) {
+    if (!e.target.classList.contains('active')) {
+        e.target.classList.add('active');
+        gsap.to('.line1', 0.5, { rotate: '45', y: 5, background: "black" });
+        gsap.to('.line2', 0.5, { rotate: '-45', y: -5, background: "black" });
+        gsap.to('#logo', 1, { color: 'black' });
+        gsap.to('.nav-bar', 1, { clipPath: 'circle(2500px at 100% -10%)' });
+        document.body.classList.add('hide');
+        
+    } else {
+        e.target.classList.remove('active');
+        gsap.to('.line1', 0.5, { rotate: '0', y: 0, background: "white" });
+        gsap.to('.line2', 0.5, { rotate: '0', y: 0, background: "white" });
+        gsap.to('#logo', 1, { color: 'white' });
+        gsap.to('.nav-bar', 1, { clipPath: 'circle(50px at 100% -10%)' });
+        document.body.classList.remove('hide');
+    }
+}
 
 window.addEventListener('mousemove',cursor);
-// window.addEventListener('click',navToggle);
+window.addEventListener('click',navToggle);
 window.addEventListener('mouseover',activeCursor);
 animateSlides();
