@@ -57,8 +57,8 @@ const burger = document.querySelector('burger');
 
 
 function cursor(e){
-    mouse.style.top = e.pageY + 'px'
-    mouse.style.left = e.pageX + 'px'
+    mouse.style.top = e.pageY + 'px';
+    mouse.style.left = e.pageX + 'px';
 }
 
 
