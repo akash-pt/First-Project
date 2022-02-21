@@ -1,6 +1,7 @@
 let controller;
 let slideScene;
 let pageScene;
+let detailScene;
 
 function animateSlides() {
     //Initiallize controller
@@ -51,7 +52,7 @@ function animateSlides() {
 }
 const mouse = document.querySelector('.cursor');
 const mouseTxt = mouse.querySelector('.cursor-text');
-const burger = document.querySelector('burger');
+const burger = document.querySelector('.burger');
 
 
 function cursor(e){
@@ -118,23 +119,28 @@ barba.init({
         {
             namespace: 'exp1',
             beforeEnter() {
-                gsap.fromTo('.nav-header', 1, {y: '100%'}, {y: '0%', ease: 'power2.inOut'})
+                detailAnimation();
+                gsap.fromTo('.nav-header', 1, { y: '100%' }, { y: '0%', ease: 'power2.inOut' })
+            },
+            beforeLeave() {
+                detailScene.destroy();
+                controller.destroy();
             }
         }
     ],
     transitions: [
         {
-            leave({current, next}) {
+            leave({ current, next }) {
                 let done = this.async();
                 //Animation
                 const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
                 tl.fromTo(current.container, 1, { opacity: 1 }, { opacity: 0 });
                 tl.fromTo('.swipe', 0.75, { x: '-100%' }, { x: '0%', stagger: 0.25, onComplete: done }, '-=0.5');
             },
-            enter({current, next}) {
+            enter({ current, next }) {
                 let done = this.async();
                 //Scroll to top of the page
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
                 //Animation
                 const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
                 tl.fromTo('.swipe', 0.75, { x: '0%' }, { x: '100%', stagger: 0.25, onComplete: done });
@@ -142,9 +148,28 @@ barba.init({
             }
         }
     ]
-})
+});
+
+function detailAnimation() {
+    controller = new ScrollMagic.Controller();
+    const slides = document.querySelectorAll('.detail-slide');
+    slides.forEach((slide, index, slides) => {
+        const slideTl = gsap.timeline({ defaults: { duration: 1 } });
+        let nextSlide = slides.length - 1 === index ? 'end' : slides[index + 1];
+        const nextImg = nextSlide.querySelector('img');
+        slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 });
+        slideTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, '-=1');
+        slideTl.fromTo(nextImg, { x: '180%' }, { x: '0%' });
+        //Scene
+        detailScene = new ScrollMagic.Scene({
+            triggerElement: slide,
+            duration: '100%',
+            triggerHook: 0
+        }).setPin(slide, { pushFollowers: false }).setTween(slideTl).addIndicators({ colorTrigger: 'white', name: 'detailScene', indent: 200 }).addTo(controller);
+    });
+}
 
 //EventListeners
 window.addEventListener('mousemove',cursor);
-window.addEventListener('click',navToggle);
+burger.addEventListener('click',navToggle);
 window.addEventListener('mouseover',activeCursor);
