@@ -17,9 +17,7 @@ function animateSlides() {
         //Animation#1
         //Animating using GSAP
         //creating animation timeline
-        const slideTl = gsap.timeline({
-            defaults: { duration: 1, ease: 'power2.inOut' }
-        });
+        const slideTl = gsap.timeline({defaults: { duration: 1, ease: 'power2.inOut' }});
         slideTl.fromTo(revealImg, { x: '0%' }, { x: '100%' });
         slideTl.fromTo(img, { scale: 1.5 }, { scale: 1 }, '-=1');
         slideTl.fromTo(revealText, { x: '0%' }, { x: '100%' }, '-=0.75');
@@ -103,7 +101,50 @@ function navToggle(e) {
     }
 }
 
+//Page transitions
+barba.init({
+    views: [
+        {
+            namespace: 'home',
+            beforeEnter() {
+                animateSlides();
+            },
+            beforeLeave() {
+                slideScene.destroy();
+                pageScene.destroy();
+                controller.destroy();
+            }
+        },
+        {
+            namespace: 'exp1',
+            beforeEnter() {
+                gsap.fromTo('.nav-header', 1, {y: '100%'}, {y: '0%', ease: 'power2.inOut'})
+            }
+        }
+    ],
+    transitions: [
+        {
+            leave({current, next}) {
+                let done = this.async();
+                //Animation
+                const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
+                tl.fromTo(current.container, 1, { opacity: 1 }, { opacity: 0 });
+                tl.fromTo('.swipe', 0.75, { x: '-100%' }, { x: '0%', stagger: 0.25, onComplete: done }, '-=0.5');
+            },
+            enter({current, next}) {
+                let done = this.async();
+                //Scroll to top of the page
+                window.scrollTo(0,0);
+                //Animation
+                const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
+                tl.fromTo('.swipe', 0.75, { x: '0%' }, { x: '100%', stagger: 0.25, onComplete: done });
+                tl.fromTo(next.container, 1, { opacity: 0 }, { opacity: 1 });
+            }
+        }
+    ]
+})
+
+//EventListeners
 window.addEventListener('mousemove',cursor);
 window.addEventListener('click',navToggle);
 window.addEventListener('mouseover',activeCursor);
-animateSlides();
